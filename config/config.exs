@@ -15,6 +15,10 @@ config :so_eat, SoEatWeb.Endpoint,
   pubsub_server: SoEat.PubSub,
   live_view: [signing_salt: "VzO+T61S"]
 
+config :so_eat,
+  sopost_api_user: System.get_env("SOPOST_API_USER"),
+  sopost_api_password: System.get_env("SOPOST_API_PASSWORD")
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
