@@ -3,5 +3,14 @@
 
   <button class="js-cta c-hero-button"><%= SoPostConfiguration.call_to_action() %></button>
 
-  <div class="js-copy-page c-hero-page"><%= SoPostConfiguration.copy() %></div>
+  <div class="js-product-page c-hero-product-page"><%= SoPostConfiguration.copy() %></div>
+  <div class="js-address-page c-hero-address-page">
+    <input class="js-name-input c-hero-input" placeholder="Full Name" />
+    <input class="js-email-input c-hero-input" placeholder="Email" />
+    <input class="js-address-search-input c-hero-input" placeholder="Search for your address" />
+    <input class="js-line1-input c-hero-input" placeholder="Street Address" />
+    <input class="js-postcode-input c-hero-input" placeholder="Postcode" />
+    <input class="js-town-input c-hero-input" placeholder="Town" />
+    <input class="js-county-input c-hero-input" placeholder="County" />
+  </div>
 </section>

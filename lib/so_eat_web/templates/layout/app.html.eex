@@ -7,6 +7,72 @@
     <title>SoEat · Phoenix Framework</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
+    <script>
+      let autocomplete;
+      function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+          document.querySelector(".js-address-search-input"),
+          {
+            fields: ['address_component', 'name'],
+            componentRestrictions: {'country': ['GB']}
+          });
+
+          autocomplete.addListener('place_changed', onPlaceChanged);
+      }
+
+      function onPlaceChanged() {
+        line1_input = document.querySelector(".js-line1-input")
+        postcode_input = document.querySelector(".js-postcode-input")
+        town_input = document.querySelector(".js-town-input")
+        county_input = document.querySelector(".js-county-input")
+        var place = autocomplete.getPlace();
+
+        let address1 = "";
+        let postcode = "";
+
+        for (const component of place.address_components) {
+
+          const componentType = component.types[0];
+
+          switch (componentType) {
+            case "street_number": {
+              address1 = `${component.long_name} ${address1}`;
+              break;
+            }
+
+            case "route": {
+              address1 += component.short_name;
+              break;
+            }
+
+            case "postal_code": {
+              postcode = `${component.long_name}${postcode}`;
+              break;
+            }
+
+            case "postal_code_suffix": {
+              postcode = `${postcode}-${component.long_name}`;
+              break;
+            }
+            case "locality":
+              town_input.value = component.long_name;
+              break;
+
+            case "administrative_area_level_1": {
+              county_input.value = component.short_name;
+              break;
+            }
+            default:
+              break;
+          }
+        }
+        line1_input.value = address1;
+        postcode_input.value = postcode;
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU9hMbb6fFtT3VOsbMAxzEy9NAYSMKiqs&libraries=places&callback=initAutocomplete">
+    </script>
   </head>
   <body>
     <main>

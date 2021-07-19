@@ -3,13 +3,14 @@ const axios = require('axios').default;
 
 window.addEventListener('load', () => {
     cta_button = document.querySelector(".js-cta")
-    copy_page = document.querySelector(".js-copy-page")
+    product_page = document.querySelector(".js-product-page")
+    address_page = document.querySelector(".js-address-page")
     const selected_partition = document.querySelector(".js-selected-partition")
 
 
     cta_button.addEventListener("click", () => {
         cta_button.classList.add("is-hidden")
-        copy_page.classList.add("is-shown")
+        product_page.classList.add("is-shown")
 
         axios.get("/api/products")
             .then(function (response) {
@@ -25,7 +26,6 @@ window.addEventListener('load', () => {
                     sku_container.classList.add("c-hero-product-button-container")
 
                     product.skus.map(sku => {
-                        console.log("SKU", sku)
                         const sku_div = document.createElement("div")
                         sku_div.classList.add("c-hero-product-button")
                         const sku_title = document.createTextNode(sku.name)
@@ -35,8 +35,9 @@ window.addEventListener('load', () => {
                         }
                         if (sku.has_stock) {
                             sku_div.addEventListener("click", () => {
-                                console.log("hello", sku)
                                 selected_partition.value = sku.id
+                                product_page.classList.remove("is-shown")
+                                address_page.classList.add("is-shown")
                             }
                             )
                         }
@@ -52,7 +53,7 @@ window.addEventListener('load', () => {
 
 
 
-                    copy_page.appendChild(product_div)
+                    product_page.appendChild(product_div)
                     console.log(product_div)
                 }
                 )
