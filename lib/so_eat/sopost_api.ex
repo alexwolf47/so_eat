@@ -17,7 +17,7 @@ defmodule SoEat.SoPostApi do
     )
     |> case do
       {:ok, %{body: body}} ->
-        IO.inspect(Jason.decode!(body))
+        {:ok, Jason.decode!(body)}
 
       {:error, error} = e ->
         Logger.error("Error requesting products. Error: #{inspect(error)}")
