@@ -60,44 +60,52 @@ defmodule SoEatWeb.ApiController do
           "partition" => partition
         } = _params
       ) do
-    ip_address = to_string(:inet_parse.ntoa(conn.remote_ip))
+    if partition in SoPostConfiguration.stock_partitions() do
+      email = email |> String.trim() |> String.downcase()
+      ip_address = to_string(:inet_parse.ntoa(conn.remote_ip))
 
-    identity =
-      :crypto.hash(:sha256, ip_address <> email)
-      |> Base.encode64()
+      identity =
+        :crypto.hash(:sha256, ip_address <> email)
+        |> Base.encode64()
 
-    address = %{
-      "line_1" => line1,
-      "line_2" => "",
-      "town" => town,
-      "district" => county,
-      "territory" => "GBR",
-      "postcode" => postcode
-    }
-
-    request_body =
-      %{
-        "activity_id" => SoPostConfiguration.activity_id(),
-        "address" => address,
-        "full_name" => name,
-        "email" => email,
-        "provider" => SoPostConfiguration.provider(),
-        "identity" => identity,
-        "line_items" => [%{"stock_partition_id" => partition}],
-        "consents" => [],
-        "locale" => "en_GB"
+      address = %{
+        "line_1" => String.trim(line1),
+        "line_2" => "",
+        "town" => String.trim(town),
+        "district" => String.trim(county),
+        "territory" => "GBR",
+        "postcode" => String.trim(postcode)
       }
-      |> Jason.encode!()
 
-    case SoPostApi.submit_order(request_body) do
-      {:ok, response} ->
-        json(conn, response)
+      request_body =
+        %{
+          "activity_id" => SoPostConfiguration.activity_id(),
+          "address" => address,
+          "full_name" => String.trim(name),
+          "email" => email,
+          "provider" => SoPostConfiguration.provider(),
+          "identity" => identity,
+          "line_items" => [%{"stock_partition_id" => partition}],
+          "consents" => [],
+          "locale" => "en_GB"
+        }
+        |> Jason.encode!()
 
-      {:error, error} ->
-        conn
-        |> put_resp_content_type("application/json")
-        |> send_resp(401, Jason.encode!(%{"error" => error}))
-        |> halt()
+      case SoPostApi.submit_order(request_body) do
+        {:ok, response} ->
+          json(conn, response)
+
+        {:error, error} ->
+          conn
+          |> put_resp_content_type("application/json")
+          |> send_resp(401, Jason.encode!(%{"error" => error}))
+          |> halt()
+      end
+    else
+      conn
+      |> put_resp_content_type("application/json")
+      |> send_resp(401, Jason.encode!(%{"error" => "Invalid partition"}))
+      |> halt()
     end
   end
 end
