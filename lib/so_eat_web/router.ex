@@ -19,6 +19,12 @@ defmodule SoEatWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", SoEatWeb do
+    pipe_through :api
+
+    get "/products", ApiController, :products
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", SoEatWeb do
   #   pipe_through :api
