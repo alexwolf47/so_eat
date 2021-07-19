@@ -23,6 +23,7 @@ defmodule SoEatWeb.Router do
     pipe_through :api
 
     get "/products", ApiController, :products
+    post "/submit", ApiController, :submit
   end
 
   # Other scopes may use custom stacks.

@@ -14,4 +14,5 @@
     <input name="county" class="js-county-input c-hero-input" placeholder="County" />
     <button class="js-form-submit c-hero-button u-text-black"><%= SoPostConfiguration.submit_call_to_action() %></button>
   </div>
+    <div class="js-complete-page c-hero-complete-page"><%= SoPostConfiguration.completion_copy() %></div>
 </section>

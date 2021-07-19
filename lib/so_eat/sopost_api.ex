@@ -24,4 +24,20 @@ defmodule SoEat.SoPostApi do
         e
     end
   end
+
+  def submit_order(request_body) do
+    HTTPoison.post(
+      base_api_endpoint() <> "orders",
+      request_body,
+      basic_auth_header()
+    )
+    |> case do
+      {:ok, %{body: body}} ->
+        {:ok, Jason.decode!(body)}
+
+      {:error, error} = e ->
+        Logger.error("Error requesting products. Error: #{inspect(error)}")
+        e
+    end
+  end
 end

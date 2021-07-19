@@ -4,10 +4,10 @@ defmodule SoEatWeb.ApiController do
   alias SoEat.SoPostApi
 
   def products(conn, _params) do
-    response =
-      SoPostApi.activity_products()
-      |> case do
-        {:ok, products} ->
+    SoPostApi.activity_products()
+    |> case do
+      {:ok, products} ->
+        response =
           Enum.map(products, fn %{"name" => name, "skus" => skus} ->
             %{
               "name" => name,
@@ -22,11 +22,14 @@ defmodule SoEatWeb.ApiController do
             }
           end)
 
-        error ->
-          error
-      end
+        json(conn, response)
 
-    json(conn, response)
+      {:error, error} ->
+        conn
+        |> put_resp_content_type("application/json")
+        |> send_resp(401, Jason.encode!(%{"error" => error}))
+        |> halt()
+    end
   end
 
   defp partition_id(stock_partitions) do
@@ -42,6 +45,59 @@ defmodule SoEatWeb.ApiController do
       partition["remaining"] > 0
     else
       false
+    end
+  end
+
+  def submit(
+        conn,
+        %{
+          "name" => name,
+          "email" => email,
+          "line1" => line1,
+          "town" => town,
+          "county" => county,
+          "postcode" => postcode,
+          "partition" => partition
+        } = _params
+      ) do
+    ip_address = to_string(:inet_parse.ntoa(conn.remote_ip))
+
+    identity =
+      :crypto.hash(:sha256, ip_address <> email)
+      |> Base.encode64()
+
+    address = %{
+      "line_1" => line1,
+      "line_2" => "",
+      "town" => town,
+      "district" => county,
+      "territory" => "GBR",
+      "postcode" => postcode
+    }
+
+    request_body =
+      %{
+        "activity_id" => SoPostConfiguration.activity_id(),
+        "address" => address,
+        "full_name" => name,
+        "email" => email,
+        "provider" => SoPostConfiguration.provider(),
+        "identity" => identity,
+        "line_items" => [%{"stock_partition_id" => partition}],
+        "consents" => [],
+        "locale" => "en_GB"
+      }
+      |> Jason.encode!()
+
+    case SoPostApi.submit_order(request_body) do
+      {:ok, response} ->
+        json(conn, response)
+
+      {:error, error} ->
+        conn
+        |> put_resp_content_type("application/json")
+        |> send_resp(401, Jason.encode!(%{"error" => error}))
+        |> halt()
     end
   end
 end

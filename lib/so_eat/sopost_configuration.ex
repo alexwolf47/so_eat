@@ -1,8 +1,13 @@
 defmodule SoPostConfiguration do
   def activity_id(), do: "b40ae957-2ac4-4b1c-a2e2-1ecb5935804f"
+  def provider(), do: "SoEat-" <> activity_id()
 
   def call_to_action(), do: "Try the world's best cutlery!"
   def submit_call_to_action(), do: "Get your cutlery!"
+
+  def completion_copy(),
+    do:
+      "Thanks for trying the world's best cutlery! Your sample will be with you as soon as possible."
 
   def copy(),
     do:
