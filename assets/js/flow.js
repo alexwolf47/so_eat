@@ -3,6 +3,8 @@ const axios = require('axios').default;
 
 window.addEventListener('load', () => {
     cta_button = document.querySelector(".js-cta")
+    submit_button = document.querySelector(".js-form-submit")
+
     product_page = document.querySelector(".js-product-page")
     address_page = document.querySelector(".js-address-page")
     const selected_partition = document.querySelector(".js-selected-partition")
@@ -64,4 +66,109 @@ window.addEventListener('load', () => {
                 console.log(error);
             })
     })
+
+    submit_button.addEventListener("click", () => {
+        submit_button.classList.remove("is-invalid")
+        name_input = document.querySelector(".js-name-input")
+        email_input = document.querySelector(".js-email-input")
+        line1_input = document.querySelector(".js-line1-input")
+        postcode_input = document.querySelector(".js-postcode-input")
+        town_input = document.querySelector(".js-town-input")
+        county_input = document.querySelector(".js-county-input")
+
+        if (name_input.value == "") {
+            name_input.classList.add("is-invalid")
+
+            submit_button.classList.add("is-invalid")
+            setTimeout(function () {
+                submit_button = document.querySelector(".js-form-submit")
+                submit_button.classList.remove("is-invalid")
+            }, 500)
+            return
+
+        }
+        else {
+            name_input.classList.remove("is-invalid")
+        }
+
+        if (email_input.value == "") {
+            email_input.classList.add("is-invalid")
+
+            submit_button.classList.add("is-invalid")
+            setTimeout(function () {
+                submit_button = document.querySelector(".js-form-submit")
+                submit_button.classList.remove("is-invalid")
+            }, 500)
+            return
+
+        }
+        else {
+            email_input.classList.remove("is-invalid")
+        }
+
+
+        if (line1_input.value == "") {
+            line1_input.classList.add("is-invalid")
+
+            submit_button.classList.add("is-invalid")
+            setTimeout(function () {
+                submit_button = document.querySelector(".js-form-submit")
+                submit_button.classList.remove("is-invalid")
+            }, 500)
+            return
+
+        }
+        else {
+            line1_input.classList.remove("is-invalid")
+        }
+        if (postcode_input.value == "") {
+            postcode_input.classList.add("is-invalid")
+
+            submit_button.classList.add("is-invalid")
+            setTimeout(function () {
+                submit_button = document.querySelector(".js-form-submit")
+                submit_button.classList.remove("is-invalid")
+            }, 500)
+            return
+
+        }
+        else {
+            postcode_input.classList.remove("is-invalid")
+        }
+        if (town_input.value == "") {
+            town_input.classList.add("is-invalid")
+
+            submit_button.classList.add("is-invalid")
+            setTimeout(function () {
+                submit_button = document.querySelector(".js-form-submit")
+                submit_button.classList.remove("is-invalid")
+            }, 500)
+            return
+
+        }
+        else {
+            town_input.classList.remove("is-invalid")
+        }
+
+
+        if (county_input.value == "") {
+            county_input.classList.add("is-invalid")
+
+            submit_button.classList.add("is-invalid")
+            setTimeout(function () {
+                submit_button = document.querySelector(".js-form-submit")
+                submit_button.classList.remove("is-invalid")
+            }, 500)
+            return
+
+        }
+        else {
+            county_input.classList.remove("is-invalid")
+        }
+    })
 })
+
+function removeSubmitButtonClass() {
+
+
+}

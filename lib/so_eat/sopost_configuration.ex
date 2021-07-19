@@ -2,6 +2,7 @@ defmodule SoPostConfiguration do
   def activity_id(), do: "b40ae957-2ac4-4b1c-a2e2-1ecb5935804f"
 
   def call_to_action(), do: "Try the world's best cutlery!"
+  def submit_call_to_action(), do: "Get your cutlery!"
 
   def copy(),
     do:
