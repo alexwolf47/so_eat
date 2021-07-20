@@ -6,9 +6,9 @@ This app is a small web app which can be deployed easily to [Render](https://ren
 
 ## Setup
 
-1. Create a new branch, or fork from this repository. Configure your web application in `sopost_configuration.ex`. There is documentation within this module which describes what each value does.
+1. Create a new branch, or fork from this repository. Configure your web application in `lib/so_est/sopost_configuration.ex`. There is documentation within this module which describes what each value does.
 2. Click the Deploy to Render button!
-3. Set up your environment variables, including your SoPost API user ID and password. A google API key can optionally be provided, which adds a google address search input to the form for quick, easy address lookup. 
+3. Enter your environment variables, including your SoPost API user ID and password. A google API key can optionally be provided, which adds a google address search input to the form for quick, easy address lookup. 
 
 ### WARNING: Your Google API key will be visible on the front end. In order to use this safely within this application, you should ensure you add suitable restrictions to your Google API key here: https://cloud.google.com/docs/authentication/api-keys#api_key_restrictions
 

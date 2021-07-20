@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: render_test
+    name: so_eat
     env: elixir
     buildCommand: sh ./build.sh
     startCommand: _build/prod/rel/so_eat/bin/so_eat start
