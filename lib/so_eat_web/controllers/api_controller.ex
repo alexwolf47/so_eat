@@ -77,7 +77,7 @@ defmodule SoEatWeb.ApiController do
         "town" => String.trim(town),
         "district" => String.trim(county),
         "territory" => "GBR",
-        "postcode" => String.trim(postcode)
+        "postcode" => String.trim(postcode) |> String.upcase()
       }
 
       request_body =

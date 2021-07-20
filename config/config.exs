@@ -17,7 +17,8 @@ config :so_eat, SoEatWeb.Endpoint,
 
 config :so_eat,
   sopost_api_user: System.get_env("SOPOST_API_USER"),
-  sopost_api_password: System.get_env("SOPOST_API_PASSWORD")
+  sopost_api_password: System.get_env("SOPOST_API_PASSWORD"),
+  google_api_key: System.get_env("GOOGLE_API_KEY")
 
 # Configures Elixir's Logger
 config :logger, :console,

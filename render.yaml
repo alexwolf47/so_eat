@@ -8,3 +8,9 @@ services:
     envVars:
       - key: SECRET_KEY_BASE
         generateValue: true
+      - key: SOPOST_API_USER
+        sync: false
+      - key: SOPOST_API_PASSWORD
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false

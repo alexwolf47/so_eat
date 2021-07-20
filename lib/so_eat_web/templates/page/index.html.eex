@@ -7,7 +7,9 @@
   <div class="js-address-page c-hero-address-page">
     <input name="name" class="js-name-input c-hero-input" placeholder="Full Name" />
     <input name="email" class="js-email-input c-hero-input" placeholder="Email" />
-    <input class="js-address-search-input c-hero-input" placeholder="Search for your address" />
+    <%= if Application.get_env(:so_eat, :google_api_key) do %>
+      <input class="js-address-search-input c-hero-input" placeholder="Search for your address" />
+    <% end %>
     <input name="line1" class="js-line1-input c-hero-input" placeholder="Street Address" />
     <input name="postcode" class="js-postcode-input c-hero-input" placeholder="Postcode" />
     <input name="town" class="js-town-input c-hero-input" placeholder="Town" />
