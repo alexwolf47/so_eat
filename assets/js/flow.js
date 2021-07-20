@@ -158,8 +158,8 @@ function submitOrder() {
             })
             .catch(function (error) {
                 // handle error
-                submitButton.innerHTML = "Something went wrong!"
-                submitButton.value = "Something went wrong!"
+                submitButton.innerHTML = error.response.data.error
+                submitButton.value = error.response.data.error
                 submitButtonShake()
                 return
             })

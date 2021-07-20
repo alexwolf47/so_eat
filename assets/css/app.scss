@@ -51,11 +51,15 @@
 .c-hero-button {
   position: absolute;
   right: 40px;
-  top: 280px;
+  top: 25px;
   width: 260px;
   height: 50px;
   background: rgba(255,255,255, 0.3);
   border: 1px solid rgba(255,255,255,0.5);
+}
+
+.c-hero-button-bottom {
+  top: 280px;
 }
 
 .c-hero-button.is-invalid {

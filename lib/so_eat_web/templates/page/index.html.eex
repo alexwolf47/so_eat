@@ -1,4 +1,4 @@
-<section class="c-hero">
+<section class="c-hero" style="background-image: url(<%= SoPostConfiguration.hero_image() %>)">
   <input type="hidden" name="partition_id" class="js-selected-partition" />
 
   <button class="js-cta c-hero-button"><%= SoPostConfiguration.call_to_action() %></button>
@@ -14,7 +14,7 @@
     <input name="postcode" class="js-postcode-input c-hero-input" placeholder="Postcode" />
     <input name="town" class="js-town-input c-hero-input" placeholder="Town" />
     <input name="county" class="js-county-input c-hero-input" placeholder="County" />
-    <button class="js-form-submit c-hero-button u-text-black"><%= SoPostConfiguration.submit_call_to_action() %></button>
+    <button class="js-form-submit c-hero-button c-hero-button-bottom u-text-black"><%= SoPostConfiguration.submit_call_to_action() %></button>
   </div>
     <div class="js-complete-page c-hero-complete-page"><%= SoPostConfiguration.completion_copy() %></div>
 </section>
