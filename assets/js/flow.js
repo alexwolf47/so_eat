@@ -16,8 +16,8 @@ window.addEventListener('load', () => {
             })
             .catch(function (error) {
                 // handle error
-                ctaButton.innerHTML = "Something went wrong!"
-                ctaButton.value = "Something went wrong!"
+                ctaButton.innerHTML = error.response.data.error
+                ctaButton.value = error.response.data.error
                 ctaButton.classList.add("is-invalid")
                 setTimeout(function () {
                     ctaButton = document.querySelector(".js-form-submit")

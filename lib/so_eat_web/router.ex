@@ -11,6 +11,7 @@ defmodule SoEatWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug SoEatWeb.Plugs.RateLimit
   end
 
   scope "/", SoEatWeb do

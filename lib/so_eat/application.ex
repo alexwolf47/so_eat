@@ -12,7 +12,8 @@ defmodule SoEat.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: SoEat.PubSub},
       # Start the Endpoint (http/https)
-      SoEatWeb.Endpoint
+      SoEatWeb.Endpoint,
+      SoEat.RateLimitServer
       # Start a worker by calling: SoEat.Worker.start_link(arg)
       # {SoEat.Worker, arg}
     ]

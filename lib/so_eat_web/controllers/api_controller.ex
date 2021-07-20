@@ -1,5 +1,6 @@
 defmodule SoEatWeb.ApiController do
   use SoEatWeb, :controller
+  require Logger
 
   alias SoEat.SoPostApi
 
@@ -25,9 +26,11 @@ defmodule SoEatWeb.ApiController do
         json(conn, response)
 
       {:error, error} ->
+        Logger.info("Error fetching products. Error: #{inspect(error)}")
+
         conn
         |> put_resp_content_type("application/json")
-        |> send_resp(401, Jason.encode!(%{"error" => error}))
+        |> send_resp(401, Jason.encode!(%{"error" => "Something went wrong! :("}))
         |> halt()
     end
   end
@@ -96,9 +99,11 @@ defmodule SoEatWeb.ApiController do
           json(conn, response)
 
         {:error, error} ->
+          Logger.info("Error submitting order. Error: #{inspect(error)}")
+
           conn
           |> put_resp_content_type("application/json")
-          |> send_resp(401, Jason.encode!(%{"error" => error}))
+          |> send_resp(401, Jason.encode!(%{"error" => "Something went wrong! :("}))
           |> halt()
       end
     else
